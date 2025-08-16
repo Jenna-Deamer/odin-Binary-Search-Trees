@@ -21,22 +21,26 @@ function Node(data) {
 }
 
 export function Tree(arr) {
-    let root = buildTree(arr);
-    let start = arr[0];
-    let end = arr[-1];
+    let root = buildTree(arr, 0, arr.length - 1);
+
 
     function buildTree(arr, start, end) {
-        if (start > end) return null 
+        if (start > end) return null
+        console.log(start)
+        console.log(end)
 
         let mid = start + Math.floor((end - start) / 2); // Middle of arr
+        console.log("Mid " + mid)
         let root = new Node(arr[mid]);
+        console.log(root)
 
         root.left = buildTree(arr, start, mid - 1);
         root.right = buildTree(arr, mid + 1, end);
-
         return root;
 
     }
+    console.log(root)
+    console.log(prettyPrint(root))
 
     return root;
 }
