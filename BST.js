@@ -35,14 +35,56 @@ export function Tree(arr) {
       return currentNode;
     }
     if (value < currentNode.data) {
-      currentNode.left = insert(value,currentNode.left);
+      currentNode.left = insert(value, currentNode.left);
     } else {
       currentNode.right = insert(value, currentNode.right);
     }
     return currentNode
   }
 
-  return { root, insert };
+  function getSuccessor(curr) {
+    curr = curr.right;
+    while (curr !== null && curr.left !== null) {
+      curr = curr.left;
+    }
+    return curr;
+  }
+
+
+  function deleteAt(value, currentNode = root) {
+    if (currentNode === null) {
+      return currentNode; // not found
+    }
+    console.log('current node is')
+    console.log(currentNode)
+
+    // Search for value to be deleted
+    if (currentNode.data > value) {
+      currentNode.left = deleteAt(value, currentNode.left)
+    }
+    else if (currentNode.data < value) {
+      currentNode.right = deleteAt(value, currentNode.right)
+    } else {// Node to be deleted found
+
+      // No children or 1 child
+      if (!currentNode.left) {
+        console.log('no left')
+        return currentNode.right;
+      } else if (!currentNode.right) {
+        console.log('no right')
+        return currentNode.left;
+      }
+
+      // Two children
+      let successor = getSuccessor(currentNode);
+      currentNode.data = successor.data; // replace value
+      currentNode.right = deleteAt(successor.data, currentNode.right)
+
+    }
+    return currentNode;
+  }
+
+  return { root, insert, deleteAt};
 
 
 }

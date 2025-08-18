@@ -20,8 +20,8 @@ const sortedArray = Array.from(new Set(sampleData.sort((a, b) => a-b)));
 const tree = Tree(sortedArray);
 console.log(tree)
 
-tree.insert(30);
-tree.insert(120);
+tree.insert(30)
+tree.deleteAt(4);
 
 console.log('=====Tree=====');
 console.log(prettyPrint(tree.root));
