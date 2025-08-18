@@ -84,7 +84,21 @@ export function Tree(arr) {
     return currentNode;
   }
 
-  return { root, insert, deleteAt};
+  function find(value, currentNode = root){
+    if(currentNode === null){
+      return null; // Not found
+    }
+
+    if(currentNode.data > value){
+      return currentNode.left = find(value, currentNode.left);
+    }else if(currentNode.data < value){
+      return currentNode.right = find(value, currentNode.right);
+    }else{
+      return currentNode;
+    }
+  }
+
+  return { root, insert, deleteAt,find};
 
 
 }
