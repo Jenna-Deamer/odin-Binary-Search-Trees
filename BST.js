@@ -84,21 +84,38 @@ export function Tree(arr) {
     return currentNode;
   }
 
-  function find(value, currentNode = root){
-    if(currentNode === null){
+  function find(value, currentNode = root) {
+    if (currentNode === null) {
       return null; // Not found
     }
 
-    if(currentNode.data > value){
+    if (currentNode.data > value) {
       return currentNode.left = find(value, currentNode.left);
-    }else if(currentNode.data < value){
+    } else if (currentNode.data < value) {
       return currentNode.right = find(value, currentNode.right);
-    }else{
+    } else {
       return currentNode;
     }
   }
 
-  return { root, insert, deleteAt,find};
+  function levelOrderForEach(cb) {
+    if (root === null) {
+      return null;
+    }
+
+    let queue = [root];
+    let result = [];
+
+    while (queue.length > 0) {
+   
+    }
+
+  }
+
+  return {
+    root, insert, deleteAt, find,
+    levelOrderForEach
+  };
 
 
 }
