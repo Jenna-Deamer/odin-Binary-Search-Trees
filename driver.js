@@ -24,11 +24,18 @@ const tree = Tree(sortedArray);
 // console.log('Found')
 // console.log(result)
 
-console.log("Level Order");
-tree.levelOrderForEach((val) => console.log(val.data));
+// console.log("Level Order");
+// tree.levelOrderForEach((val) => console.log(val.data));
 
-console.log("In Order");
-tree.inOrderForEach((val) => console.log(val.data));
+
+// console.log("In Order");
+// tree.inOrderForEach((val) => console.log(val.data));
+
+// console.log("Pre Order");
+// tree.preOrderForEach((val) => console.log(val.data));
+
+console.log("Post Order");
+tree.postOrderForEach((val) => console.log(val.data));
 
 console.log('=====Tree=====');
 console.log(prettyPrint(tree.root));
