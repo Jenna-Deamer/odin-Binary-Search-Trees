@@ -1,121 +1,135 @@
 export function Node(data) {
-  return {
-    data,
-    left: null,
-    right: null
-  };
+    return {
+        data,
+        left: null,
+        right: null
+    };
 }
 
 export function Tree(arr) {
-  let root = buildTree(arr, 0, arr.length - 1);
+    let root = buildTree(arr, 0, arr.length - 1);
 
 
-  function buildTree(arr, start, end) {
-    if (start > end) return null
+    function buildTree(arr, start, end) {
+        if (start > end) return null
 
-    let mid = start + Math.floor((end - start) / 2); // Middle of arr
-    let root = new Node(arr[mid]);
+        let mid = start + Math.floor((end - start) / 2); // Middle of arr
+        let root = new Node(arr[mid]);
 
-    root.left = buildTree(arr, start, mid - 1);
-    root.right = buildTree(arr, mid + 1, end);
-    return root;
-
-  }
-  // console.log(root)
-  // console.log(prettyPrint(root))
-
-  function insert(value, currentNode = root) {
-    if (currentNode == null) {
-      console.log('creating node....')
-      root = new Node(value);
-      return root;
-    }
-    if (currentNode.data === value) {
-      console.log('Node exists in tree!')
-      return currentNode;
-    }
-    if (value < currentNode.data) {
-      currentNode.left = insert(value, currentNode.left);
-    } else {
-      currentNode.right = insert(value, currentNode.right);
-    }
-    return currentNode
-  }
-
-  function getSuccessor(curr) {
-    curr = curr.right;
-    while (curr !== null && curr.left !== null) {
-      curr = curr.left;
-    }
-    return curr;
-  }
-
-
-  function deleteAt(value, currentNode = root) {
-    if (currentNode === null) {
-      return currentNode; // not found
-    }
-    console.log('current node is')
-    console.log(currentNode)
-
-    // Search for value to be deleted
-    if (currentNode.data > value) {
-      currentNode.left = deleteAt(value, currentNode.left)
-    }
-    else if (currentNode.data < value) {
-      currentNode.right = deleteAt(value, currentNode.right)
-    } else {// Node to be deleted found
-
-      // No children or 1 child
-      if (!currentNode.left) {
-        console.log('no left')
-        return currentNode.right;
-      } else if (!currentNode.right) {
-        console.log('no right')
-        return currentNode.left;
-      }
-
-      // Two children
-      let successor = getSuccessor(currentNode);
-      currentNode.data = successor.data; // replace value
-      currentNode.right = deleteAt(successor.data, currentNode.right)
+        root.left = buildTree(arr, start, mid - 1);
+        root.right = buildTree(arr, mid + 1, end);
+        return root;
 
     }
-    return currentNode;
-  }
+    // console.log(root)
+    // console.log(prettyPrint(root))
 
-  function find(value, currentNode = root) {
-    if (currentNode === null) {
-      return null; // Not found
+    function insert(value, currentNode = root) {
+        if (currentNode == null) {
+            console.log('creating node....')
+            root = new Node(value);
+            return root;
+        }
+        if (currentNode.data === value) {
+            console.log('Node exists in tree!')
+            return currentNode;
+        }
+        if (value < currentNode.data) {
+            currentNode.left = insert(value, currentNode.left);
+        } else {
+            currentNode.right = insert(value, currentNode.right);
+        }
+        return currentNode
     }
 
-    if (currentNode.data > value) {
-      return currentNode.left = find(value, currentNode.left);
-    } else if (currentNode.data < value) {
-      return currentNode.right = find(value, currentNode.right);
-    } else {
-      return currentNode;
-    }
-  }
-
-  function levelOrderForEach(cb) {
-    if (root === null) {
-      return null;
+    function getSuccessor(curr) {
+        curr = curr.right;
+        while (curr !== null && curr.left !== null) {
+            curr = curr.left;
+        }
+        return curr;
     }
 
-    let queue = [root];
-    let result = [];
 
-    while (queue.length > 0) {
-   
+    function deleteAt(value, currentNode = root) {
+        if (currentNode === null) {
+            return currentNode; // not found
+        }
+        console.log('current node is')
+        console.log(currentNode)
+
+        // Search for value to be deleted
+        if (currentNode.data > value) {
+            currentNode.left = deleteAt(value, currentNode.left)
+        }
+        else if (currentNode.data < value) {
+            currentNode.right = deleteAt(value, currentNode.right)
+        } else {// Node to be deleted found
+
+            // No children or 1 child
+            if (!currentNode.left) {
+                console.log('no left')
+                return currentNode.right;
+            } else if (!currentNode.right) {
+                console.log('no right')
+                return currentNode.left;
+            }
+
+            // Two children
+            let successor = getSuccessor(currentNode);
+            currentNode.data = successor.data; // replace value
+            currentNode.right = deleteAt(successor.data, currentNode.right)
+
+        }
+        return currentNode;
     }
 
-  }
+    function find(value, currentNode = root) {
+        if (currentNode === null) {
+            return null; // Not found
+        }
 
-  return {
-    root, insert, deleteAt, find,
-    levelOrderForEach
-  };
+        if (currentNode.data > value) {
+            return currentNode.left = find(value, currentNode.left);
+        } else if (currentNode.data < value) {
+            return currentNode.right = find(value, currentNode.right);
+        } else {
+            return currentNode;
+        }
+    }
+
+    function levelOrderForEach(callback) {
+        if (callback === null) {
+            throw new Error("Can't proceed without callback");
+        }
+        if (root === null) {
+            return null;
+        }
+        let current;
+        let queue = [root];
+
+        while (queue.length > 0) {
+            current = queue.shift()
+            callback(current) // foreach node call cb
+
+            // enqueue all left & right children
+            if (current.left) {
+                queue.push(current.left)
+            }
+            if (current.right) {
+                queue.push(current.right)
+            }
+        }
+
+        function inOrderForEach(callback){
+            
+        }
+    }
+
+    return {
+        root, insert, deleteAt, find,
+        levelOrderForEach,inOrderForEach
+    };
 
 
 }
