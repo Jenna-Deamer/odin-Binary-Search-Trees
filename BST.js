@@ -180,9 +180,9 @@ export function Tree(arr) {
         }
 
         if (currentNode.data > value) {
-          return depth(value, currentNode.left, d + 1);
+            return depth(value, currentNode.left, d + 1);
         } else if (currentNode.data < value) {
-           return depth(value, currentNode.right, d + 1);
+            return depth(value, currentNode.right, d + 1);
         } else {
             console.log(d)
             return d;
@@ -204,6 +204,22 @@ export function Tree(arr) {
 
     }
 
+    function rebalance(currentNode = root) {
+        if (currentNode === null) {
+            return null;
+        }
+
+        const nodes = [];
+        // go through tree push each node to new array
+        inOrderForEach(node => nodes.push(node.data), currentNode)
+        // sort arr & remove any dupes
+        const sortedArray = Array.from(new Set(nodes.sort((a, b) => a - b)));
+        // rebuild  
+        root = buildTree(sortedArray);
+        return root;
+
+    }
+
     return {
         root,
         insert,
@@ -215,6 +231,7 @@ export function Tree(arr) {
         postOrderForEach,
         height,
         depth,
-        isBalanced
+        isBalanced,
+        rebalance
     };
 }
