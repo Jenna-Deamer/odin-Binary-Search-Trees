@@ -34,8 +34,13 @@ const tree = Tree(sortedArray);
 // console.log("Pre Order");
 // tree.preOrderForEach((val) => console.log(val.data));
 
-console.log("Post Order");
-tree.postOrderForEach((val) => console.log(val.data));
+// console.log("Post Order");
+// tree.postOrderForEach((val) => console.log(val.data));
+
+console.log('Height')
+let height = tree.height(4)
+console.log(height)
 
 console.log('=====Tree=====');
 console.log(prettyPrint(tree.root));
+    
