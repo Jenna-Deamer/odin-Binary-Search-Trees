@@ -37,9 +37,9 @@ const tree = Tree(sortedArray);
 // console.log("Post Order");
 // tree.postOrderForEach((val) => console.log(val.data));
 
-console.log('Height')
-let height = tree.height(4)
-console.log(height)
+// console.log('Depth')
+// let depth = tree.depth(6345)
+// console.log(depth)
 
 console.log('=====Tree=====');
 console.log(prettyPrint(tree.root));
