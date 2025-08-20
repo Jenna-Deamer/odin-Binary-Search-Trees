@@ -187,15 +187,14 @@ export function Tree(arr) {
             console.log(d)
             return d;
         }
-        return currentNode;
     }
 
     function isBalanced(currentNode = root) {
         if (currentNode === null) {
             return true;
         }
-        const leftHeight = height(currentNode.left)
-        const rightHeight = height(currentNode.right)
+        let leftHeight = calcHeight(currentNode.left)
+        let rightHeight = calcHeight(currentNode.right)
         // return absolute value
         if (Math.abs(leftHeight - rightHeight) > 1) {
             return false;
