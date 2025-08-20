@@ -18,9 +18,13 @@ const sampleData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const sortedArray = Array.from(new Set(sampleData.sort((a, b) => a - b)));
 const tree = Tree(sortedArray);
 
-// tree.insert(30)
+// tree.insert(2)
+// tree.insert(22)
+// tree.insert(44444)
+
+
 // tree.deleteAt(4);
-// let result = tree.find(4);
+// let result = tree.depth(23);
 // console.log('Found')
 // console.log(result)
 
@@ -43,4 +47,7 @@ const tree = Tree(sortedArray);
 
 console.log('=====Tree=====');
 console.log(prettyPrint(tree.root));
+
+let result = tree.isBalanced();
+console.log(result)
     

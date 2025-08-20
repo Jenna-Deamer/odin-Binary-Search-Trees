@@ -23,10 +23,10 @@ export function Tree(arr) {
     // console.log(prettyPrint(root))
 
     function insert(value, currentNode = root) {
+        value = Number(value); // convert to number
         if (currentNode == null) {
             console.log("creating node....");
-            root = new Node(value);
-            return root;
+            return new Node(value);
         }
         if (currentNode.data === value) {
             console.log("Node exists in tree!");
@@ -86,9 +86,9 @@ export function Tree(arr) {
         }
 
         if (currentNode.data > value) {
-            return (currentNode.left = find(value, currentNode.left));
+            return find(value, currentNode.left)
         } else if (currentNode.data < value) {
-            return (currentNode.right = find(value, currentNode.right));
+            return find(value, currentNode.right);
         } else {
             return currentNode;
         }
@@ -180,14 +180,29 @@ export function Tree(arr) {
         }
 
         if (currentNode.data > value) {
-            currentNode.left = depth(value, currentNode.left, d+1);
+          return depth(value, currentNode.left, d + 1);
         } else if (currentNode.data < value) {
-            currentNode.right = depth(value, currentNode.right, d+1);
+           return depth(value, currentNode.right, d + 1);
         } else {
             console.log(d)
             return d;
         }
-         return currentNode;
+        return currentNode;
+    }
+
+    function isBalanced(currentNode = root) {
+        if (currentNode === null) {
+            return true;
+        }
+        const leftHeight = height(currentNode.left)
+        const rightHeight = height(currentNode.right)
+        // return absolute value
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return false;
+        }
+
+        return isBalanced(currentNode.left) && isBalanced(currentNode.right)
+
     }
 
     return {
@@ -200,6 +215,7 @@ export function Tree(arr) {
         inOrderForEach,
         postOrderForEach,
         height,
-        depth
+        depth,
+        isBalanced
     };
 }
