@@ -204,18 +204,18 @@ export function Tree(arr) {
 
     }
 
-    function rebalance(currentNode = root) {
-        if (currentNode === null) {
+    function rebalance() {
+        if (root === null) {
             return null;
         }
 
         const nodes = [];
         // go through tree push each node to new array
-        inOrderForEach(node => nodes.push(node.data), currentNode)
+        inOrderForEach(node => nodes.push(node.data), root)
         // sort arr & remove any dupes
-        const sortedArray = Array.from(new Set(nodes.sort((a, b) => a - b)));
+        const sortedArray = Array.from(new Set(nodes));
         // rebuild  
-        root = buildTree(sortedArray);
+        root = buildTree(sortedArray, 0, sortedArray.length - 1);
         return root;
 
     }

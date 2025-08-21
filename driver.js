@@ -48,8 +48,9 @@ tree.insert(44444)
 console.log('=====Tree=====');
 console.log(prettyPrint(tree.root));
 
-tree.isBalanced();
+
 let result =  tree.rebalance();
+console.log(tree.isBalanced());
 
 console.log(result)
 
